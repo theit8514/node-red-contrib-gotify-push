@@ -1,9 +1,8 @@
-import urljoin from "url-join";
-
 module.exports = function(RED) {
     function Send(config) {
         RED.nodes.createNode(this,config);
         const axios = require("axios");
+        const path = require("path-posix");
         const node = this;
 
         node.on('input', async function(msg) {
@@ -15,8 +14,10 @@ module.exports = function(RED) {
             }
           }
           try {
-            const url = urljoin(config.server, "message", "?token=" + config.token);
-            axios.post(url, msg.payload);
+            const url = new URL(config.server);
+            url.pathname = path.join(url.pathname, "message");
+            url.searchParams.append("token", config.token);
+            axios.post(url.toString(), msg.payload);
           } catch(e) {console.log(e);}
         });
     }

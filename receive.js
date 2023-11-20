@@ -1,5 +1,3 @@
-import urljoin from "url-join";
-
 module.exports = function(RED) {
     function Receive(config) {
         RED.nodes.createNode(this,config);
@@ -9,8 +7,11 @@ module.exports = function(RED) {
 
         const poll = async function() {
           try {
-            const url = urljoin(config.server, "message", "?token=" + config.token + "&limit=1");
-            const responds = await axios.get(url);
+            const url = new URL(config.server);
+            url.pathname = url.pathname + "/message";
+            url.searchParams.append("token", config.token);
+            url.searchParams.append("limit", "1");
+            const responds = await axios.get(url.toString());
             let lastMsgId = storage.get("lastId");
             const msgs = responds.data.messages;
             for(let i=0;i<msgs.length;i++) {
