@@ -26,8 +26,7 @@
   },
   "homepage": "https://github.com/zoernert/nr-gotify-push#readme",
   "dependencies": {
-    "axios": "^0.26.1",
-    "url-join": "^5.0.0"
+    "axios": "^0.26.1"
   },
   "node-red": {
     "nodes": {
