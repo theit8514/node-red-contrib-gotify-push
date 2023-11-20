@@ -1,8 +1,9 @@
+import urljoin from "url-join";
+
 module.exports = function(RED) {
     function Receive(config) {
         RED.nodes.createNode(this,config);
         const axios = require("axios");
-        const urljoin = require("url-join");
         const node = this;
         const storage = node.context();
 
