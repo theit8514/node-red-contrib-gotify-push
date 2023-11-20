@@ -2,7 +2,7 @@ module.exports = function(RED) {
     function Send(config) {
         RED.nodes.createNode(this,config);
         const axios = require("axios");
-        const path = require("path-posix");
+        const path = require('node:path/posix');
         const node = this;
 
         node.on('input', async function(msg) {
