@@ -2,6 +2,7 @@ module.exports = function(RED) {
     function Send(config) {
         RED.nodes.createNode(this,config);
         const axios = require("axios");
+        const urljoin = require("url-join");
         const node = this;
 
         node.on('input', async function(msg) {
@@ -13,7 +14,8 @@ module.exports = function(RED) {
             }
           }
           try {
-            axios.post(config.server+"message?token="+config.token,msg.payload);
+            const url = urljoin(config.server, "message", "?token=" + config.token);
+            axios.post(url, msg.payload);
           } catch(e) {console.log(e);}
         });
     }

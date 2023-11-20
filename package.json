@@ -1,5 +1,5 @@
 {
-  "name": "nr-gotify",
+  "name": "node-red-contrib-gotify-push",
   "version": "0.5.6",
   "description": "NodeRED Node to send Push Messages via Gotify (self-hosted or cloud)",
   "main": "lib.js",
@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/zoernert/nr-gotify-push#readme",
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "url-join": "^5.0.0"
   },
   "node-red": {
     "nodes": {

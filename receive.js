@@ -2,13 +2,14 @@ module.exports = function(RED) {
     function Receive(config) {
         RED.nodes.createNode(this,config);
         const axios = require("axios");
+        const urljoin = require("url-join");
         const node = this;
         const storage = node.context();
 
         const poll = async function() {
           try {
-            let url = new URL( config.server );
-            const responds = await axios.get(url.origin+"/message?token="+config.token+"&limit=1");
+            const url = urljoin(config.server, "message", "?token=" + config.token + "&limit=1");
+            const responds = await axios.get(url);
             let lastMsgId = storage.get("lastId");
             const msgs = responds.data.messages;
             for(let i=0;i<msgs.length;i++) {
